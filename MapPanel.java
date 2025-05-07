@@ -1,4 +1,4 @@
-package com.mycompany.towerdefense;
+package TowerDefense;
 
 import javax.swing.*;
 import java.awt.*;

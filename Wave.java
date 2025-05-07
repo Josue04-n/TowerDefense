@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.towerdefense;
+package TowerDefense;
+
 import java.util.LinkedList;
 import java.util.Queue;
-
-/**
- *
- * @author LENOVO
- */
 
 public class Wave {
     private Queue<Cozy> cozyQueue;
@@ -20,7 +12,7 @@ public class Wave {
         this.cozyQueue = new LinkedList<>();
 
         for (int i = 0; i < quantity; i++) {
-            cozyQueue.add(new Cozy(cozyType));
+            cozyQueue.add(CozyFactory.create(cozyType));
         }
     }
 

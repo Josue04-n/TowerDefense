@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.towerdefense;
+package TowerDefense;
 
-/**
- *
- * @author LENOVO
- */
 public class Tower {
+
     private int x, y;
     private TowerType type;
     private int level;
+    private Integer overrideDamage = null;
+    private Integer overrideRange = null;
 
     public Tower(int x, int y, TowerType type) {
         this.x = x;
@@ -25,11 +20,29 @@ public class Tower {
     }
 
     public void downgrade() {
-        if (level > 1) level--;
+        if (level > 1) {
+            level--;
+        }
     }
 
     public int getEffectiveDamage() {
         return type.getDamage() * level;
+    }
+
+    public int getDamage() {
+        return overrideDamage != null ? overrideDamage : getEffectiveDamage();
+    }
+
+    public int getRange() {
+        return overrideRange != null ? overrideRange : type.getRange();
+    }
+
+    public void setDamage(int damage) {
+        this.overrideDamage = damage;
+    }
+
+    public void setRange(int range) {
+        this.overrideRange = range;
     }
 
     public boolean isInRange(int enemyX, int enemyY) {
@@ -42,8 +55,15 @@ public class Tower {
         cozy.takeDamage(getEffectiveDamage());
     }
 
-    // Getters
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public int getLevel() { return level; }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getLevel() {
+        return level;
+    }
 }

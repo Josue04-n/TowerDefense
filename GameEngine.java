@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.towerdefense;
+package TowerDefense;
+
 import java.util.*;
 
 /**
@@ -17,15 +14,19 @@ public class GameEngine {
     private CircularQueue<Cozy> cozyQueue;
     private int playerHealth;
     private int score;
+    private GameContext context;
 
-    public GameEngine(GameMap gameMap, List<Wave> waves, int maxCozyCapacity, int initialHealth) {
-        this.gameMap = gameMap;
-        this.waves = waves;
-        this.currentWaveIndex = 0;
-        this.cozyQueue = new CircularQueue<>(maxCozyCapacity);
-        this.playerHealth = initialHealth;
-        this.score = 0;
-    }
+
+    public GameEngine(GameMap gameMap, List<Wave> waves, int maxCozyCapacity, int initialHealth, GameContext context) {
+    this.gameMap = gameMap;
+    this.waves = waves;
+    this.currentWaveIndex = 0;
+    this.cozyQueue = new CircularQueue<>(maxCozyCapacity);
+    this.playerHealth = initialHealth;
+    this.score = 0;
+    this.context = context; // ⬅ aquí se asigna
+}
+
 
     public void startNextWave() {
         if (currentWaveIndex < waves.size()) {
@@ -45,8 +46,9 @@ public class GameEngine {
         for (int i = 0; i < size; i++) {
             Cozy cozy = cozyQueue.dequeue();
 
+
             // Movimiento del Cozy
-            cozy.moveForward();
+            cozy.tick(gameMap, context);
 
             // Comprobar si llegó al final del camino
             if (cozy.getPositionIndex() >= gameMap.getPath().size()) {
