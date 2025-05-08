@@ -10,19 +10,13 @@ public class GamePanel extends JPanel {
     private GameContext context;
     private Image towerImage;
     private Image backgroundImage;
+    private Tower torreSeleccionada = null;
 
     private static final int TILE_SIZE = 80;
 
     public GamePanel(GameMap map, GameContext context) {
         this.map = map;
         this.context = context;
-
-        try {
-            towerImage = new ImageIcon(getClass().getResource("/TowerDefense/imgs/torreAtaque.png")).getImage();
-        } catch (Exception e) {
-            System.err.println("⚠️ Imagen de torre no encontrada. Se usará color por defecto.");
-            towerImage = null;
-        }
 
         try {
             backgroundImage = new ImageIcon(getClass().getResource("/TowerDefense/imgs/fondo.png")).getImage();
@@ -36,34 +30,52 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(width, height));
 
         addMouseListener(new MouseAdapter() {
-    public void mouseClicked(MouseEvent e) {
-        int x = e.getX() / TILE_SIZE;
-        int y = e.getY() / TILE_SIZE;
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX() / TILE_SIZE;
+                int y = e.getY() / TILE_SIZE;
+                TowerDefense ventana = (TowerDefense) SwingUtilities.getWindowAncestor(GamePanel.this);
 
-        TowerDefense ventana = (TowerDefense) SwingUtilities.getWindowAncestor(GamePanel.this);
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    // ✅ Clic derecho: buscar si hay una torre en esa posición
+                    for (Tower t : map.getTowers()) {
+                        if (t.getX() == x && t.getY() == y) {
+                            torreSeleccionada = t;
+                            JOptionPane.showMessageDialog(GamePanel.this,
+                                    "🔧 Torre seleccionada para mejora\nNivel: " + t.getLevel()
+                                    + "\nDaño actual: " + t.getDamage());
+                            return;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(GamePanel.this, "⚠️ No hay torre aquí para mejorar.");
+                    return;
+                }
 
-        if (map.getTowers().size() >= ventana.getMaxTorres()) {
-            JOptionPane.showMessageDialog(GamePanel.this, "🚫 Límite de torres alcanzado (" + ventana.getMaxTorres() + ")");
-            return;
-        }
+                // ⚠️ Clic izquierdo: colocar torre normalmente
+                if (map.getTowers().size() >= ventana.getMaxTorres()) {
+                    JOptionPane.showMessageDialog(GamePanel.this, "🚫 Límite de torres alcanzado.");
+                    return;
+                }
 
-        if (ventana.getOro() >= 20) {
-            Tower tower = TowerFactory.create("basic", x, y);
+                TowerType tipo = ventana.getSelectedTowerType();
+                if (tipo == null) {
+                    JOptionPane.showMessageDialog(GamePanel.this, "Selecciona un tipo de torre primero.");
+                    return;
+                }
 
-            PlaceTowerCommand cmd = new PlaceTowerCommand(map, tower);
-            cmd.execute();
+                if (ventana.getOro() >= tipo.getCost()) {
+                    Tower tower = new Tower(x, y, tipo);
+                    PlaceTowerCommand cmd = new PlaceTowerCommand(map, tower);
+                    cmd.execute();
+                    ventana.addToUndoStack(cmd);
+                    ventana.clearRedoStack();
+                    ventana.restarOro(tipo.getCost());
+                    repaint();
+                } else {
+                    JOptionPane.showMessageDialog(GamePanel.this, "💰 Oro insuficiente para colocar la torre.");
+                }
+            }
+        });
 
-            // Agrega a pila de deshacer y limpia pila de rehacer
-            ventana.addToUndoStack(cmd);
-            ventana.clearRedoStack();
-
-            ventana.restarOro(20);
-            repaint();
-        } else {
-            JOptionPane.showMessageDialog(GamePanel.this, "💰 No tienes suficiente oro para colocar una torre.");
-        }
-    }
-});
     }
 
     @Override
@@ -88,8 +100,9 @@ public class GamePanel extends JPanel {
 
         // Torres
         for (Tower tower : map.getTowers()) {
-            if (towerImage != null) {
-                g.drawImage(towerImage, tower.getX() * TILE_SIZE, tower.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, this);
+            Image img = tower.getImage();
+            if (img != null) {
+                g.drawImage(img, tower.getX() * TILE_SIZE, tower.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, this);
             } else {
                 g.setColor(Color.DARK_GRAY);
                 g.fillRect(tower.getX() * TILE_SIZE, tower.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -142,4 +155,9 @@ public class GamePanel extends JPanel {
             }
         }
     }
+
+    public Tower getTorreSeleccionada() {
+        return torreSeleccionada;
+    }
+
 }

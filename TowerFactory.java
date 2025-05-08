@@ -12,9 +12,9 @@ public class TowerFactory {
     private static final Map<String, TowerType> types = new HashMap<>();
 
     static {
-        types.put("basic", new TowerType("Basic", 2, 20));
-        types.put("sniper", new TowerType("Sniper", 4, 35));
-        types.put("cannon", new TowerType("Cannon", 3, 50));
+        types.put("basic", new TowerType("Basic", 2, 20,20, "/TowerDefense/imgs/basic.png"));
+        types.put("sniper", new TowerType("Sniper", 4, 35,60, "/TowerDefense/imgs/sniper.png"));
+        types.put("cannon", new TowerType("Cannon", 3, 50,100, "/TowerDefense/imgs/cannon.png"));
     }
 
     public static Tower create(String typeName, int x, int y) {

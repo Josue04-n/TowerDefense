@@ -1,9 +1,11 @@
 package TowerDefense;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +28,16 @@ public class TowerDefense extends javax.swing.JFrame {
     private final Stack<Command> redoStack = new Stack<>();
     private boolean oleadasFinalizadas = false;
 
+    private TowerType selectedTowerType;
+
+    public void setSelectedTowerType(TowerType type) {
+        this.selectedTowerType = type;
+    }
+
+    public TowerType getSelectedTowerType() {
+        return selectedTowerType;
+    }
+
     public TowerDefense() {
         initComponents();
         configurarLogicaDeJuego();
@@ -45,7 +57,9 @@ public class TowerDefense extends javax.swing.JFrame {
 
     public void restarOro(int cantidad) {
         oro -= cantidad;
-        if (oro < 0) oro = 0;
+        if (oro < 0) {
+            oro = 0;
+        }
     }
 
     public void clearRedoStack() {
@@ -78,16 +92,43 @@ public class TowerDefense extends javax.swing.JFrame {
         JButton undoButton = new JButton("Deshacer");
         JButton refreshButton = new JButton("Actualizar");
         JButton redoButton = new JButton("Rehacer");
+        JButton upgradeButton = new JButton("Mejorar Torre");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(startButton);
         buttonPanel.add(undoButton);
         buttonPanel.add(refreshButton);
         buttonPanel.add(redoButton);
+        buttonPanel.add(upgradeButton);
+
+        // Botón para seleccionar una torre desde menú
+        JButton selectTowerButton = new JButton("Seleccionar Torre");
+        selectTowerButton.addActionListener(e -> {
+            String[] opciones = {"basic", "sniper", "cannon"};
+            String seleccion = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Selecciona el tipo de torre:",
+                    "Torre disponible",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]);
+
+            if (seleccion != null) {
+                TowerType tipo = TowerFactory.getTowerType(seleccion.toLowerCase());
+                if (tipo != null) {
+                    setSelectedTowerType(tipo);
+                    JOptionPane.showMessageDialog(this, "Seleccionaste: " + tipo.getName() + "\nCosto: " + tipo.getCost());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tipo de torre no válido.");
+                }
+            }
+        });
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(gamePanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        buttonPanel.add(selectTowerButton); // Agrega al mismo panel inferior
 
         gameTickTimer = new Timer(500, e -> moverEnemigos());
         gameTickTimer.start();
@@ -130,7 +171,9 @@ public class TowerDefense extends javax.swing.JFrame {
         });
 
         startButton.addActionListener(e -> {
-            if (juegoIniciado) return;
+            if (juegoIniciado) {
+                return;
+            }
 
             if (map.getTowers().size() != 3) {
                 JOptionPane.showMessageDialog(this, "⚠️ Debes colocar exactamente 3 torres antes de iniciar.");
@@ -144,9 +187,34 @@ public class TowerDefense extends javax.swing.JFrame {
             iniciarOleada();
         });
 
+        upgradeButton.addActionListener(e -> {
+            if (gamePanel.getTorreSeleccionada() != null) {
+                Tower torre = gamePanel.getTorreSeleccionada();
+                int costoMejora = torre.getUpgradeCost();
+
+                if (torre.getLevel() >= 3) {
+                    JOptionPane.showMessageDialog(this, "⚠️ La torre ya está al nivel máximo.");
+                    return;
+                }
+
+                if (oro >= costoMejora) {
+                    torre.upgrade();
+                    restarOro(costoMejora);
+                    JOptionPane.showMessageDialog(this, "🔺 Torre mejorada a nivel " + torre.getLevel()
+                            + "\nNuevo daño: " + torre.getDamage());
+                    gamePanel.repaint();
+                } else {
+                    JOptionPane.showMessageDialog(this, "💰 Oro insuficiente. Se requieren " + costoMejora + " monedas.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "⚠️ No has seleccionado ninguna torre.");
+            }
+        });
+
         pack();
         revalidate();
         repaint();
+
     }
 
     private void iniciarOleada() {
@@ -232,17 +300,21 @@ public class TowerDefense extends javax.swing.JFrame {
     }
 
     private void detenerTimers() {
-        if (gameTickTimer != null) gameTickTimer.stop();
-        if (attackTimer != null) attackTimer.stop();
+        if (gameTickTimer != null) {
+            gameTickTimer.stop();
+        }
+        if (attackTimer != null) {
+            attackTimer.stop();
+        }
     }
 
-public static void main(String[] args) {
-    java.awt.EventQueue.invokeLater(() -> {
-        new TowerDefense().setVisible(true);
-    });
-}
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new TowerDefense().setVisible(true);
+        });
+    }
 
-/*
+    /*
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
