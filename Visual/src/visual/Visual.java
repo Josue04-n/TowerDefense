@@ -26,6 +26,7 @@ public class Visual {
         System.out.println("borra");
         System.out.println("borra");
         System.out.println("borra");
+        System.out.println("despues der reverse");
     }
     
 }
