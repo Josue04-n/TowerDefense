@@ -35,7 +35,6 @@ public class Visual {
         
         System.out.println("Prueba2");
         System.out.println("Hola");
-        System.out.println("Merge desde prueba2");
     }
 
 }
