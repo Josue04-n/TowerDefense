@@ -32,6 +32,9 @@ public class Visual {
         System.out.println("borra");
         System.out.println("borra");
         System.out.println("despues der reverse");
+        
+        System.out.println("Prueba2");
+        System.out.println("Hola");
     }
 
 }
