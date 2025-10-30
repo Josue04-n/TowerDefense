@@ -15,23 +15,10 @@ public class Visual {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        System.out.println("Visual");
 
-        System.out.println("holii lopez");
-        System.out.println("holii vero");
-
-        System.out.println("visual.Visual.main()");
-        System.out.println("holaaaaa x2 lopez");
-        System.out.println("holaaaaa x2 vero");
-
-        System.out.println("borra");
-        System.out.println("borra");
-        System.out.println("borra");
-        System.out.println("despues der reverse");
-
-        System.out.println("nueva rama");
-        System.out.println("borra");
-        System.out.println("borra");
-        System.out.println("despues der reverse");        
+     
 
     }
 
