@@ -17,6 +17,9 @@ public class Holax2 {
         // TODO code application logic here
         System.out.println("Hola amigos");
         System.out.println("Quiero pasar la materia");
+        
+        System.out.println("Hola a todos");
+        System.out.println("nos vemos en base");
     }
     
 }
