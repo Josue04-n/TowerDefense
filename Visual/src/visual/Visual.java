@@ -22,6 +22,10 @@ public class Visual {
         System.out.println("visual.Visual.main()");
         System.out.println("holaaaaa x2 lopez");
         System.out.println("holaaaaa x2 vero");
+        
+        System.out.println("borra");
+        System.out.println("borra");
+        System.out.println("borra");
     }
     
 }
