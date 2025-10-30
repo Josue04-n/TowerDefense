@@ -31,7 +31,8 @@ public class Visual {
         System.out.println("nueva rama");
         System.out.println("borra");
         System.out.println("borra");
-        System.out.println("despues der reverse");
+        System.out.println("despues der reverse");        
+
     }
 
 }
