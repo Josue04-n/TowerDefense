@@ -32,6 +32,8 @@ public class Visual {
         System.out.println("borra");
         System.out.println("borra");
         System.out.println("despues der reverse");
+        
+        System.out.println("Linea a borrar");
     }
 
 }
