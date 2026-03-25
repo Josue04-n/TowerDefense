@@ -90,7 +90,7 @@ El sistema implementa una arquitectura **TALL Stack** (Tailwind, Alpine.js, Lara
 
 Agradecemos la dedicación y el esfuerzo técnico de los desarrolladores que han hecho posible este ecosistema de UX:
 
-* **Josué** - [@tu-usuario](https://github.com/Josue04-n)  
+* **Josué** - [@Josue04-n](https://github.com/Josue04-n)  
   *Lead Software Architect & HCI Specialist*
 * **Alex Reyes** - [@alexJonarey](https://github.com/alexJonarey)  
   *Backend Developer & Database Manager*
