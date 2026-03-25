@@ -86,15 +86,24 @@ El sistema implementa una arquitectura **TALL Stack** (Tailwind, Alpine.js, Lara
 - [ ] Módulo de Mapas de Calor (Heatmaps) por Tarea.
 
 ---
-
 ## 👥 Contribuidores
-* **Josué** - [@tu-usuario](https://github.com/tu-usuario) - *Arquitecto de Software & Especialista HCI*
-* **GitHub Copilot** - *Code Review & Optimization Partner*
+
+Agradecemos la dedicación y el esfuerzo técnico de los desarrolladores que han hecho posible este ecosistema de UX:
+
+* **Josué** - [@tu-usuario](https://github.com/tu-usuario)  
+  *Lead Software Architect & HCI Specialist*
+* **Alex Reyes** - [@alexJonarey](https://github.com/alexJonarey)  
+  *Backend Developer & Database Manager*
+* **Bryan Lopez** - [@BryanLopez257](https://github.com/BryanLopez257)  
+  *UX/UI Implementation & Frontend Support*
+* **Dennis Quisaguano** - [@DennisQuisaguano](https://github.com/DennisQuisaguano)  
+  *QA Engineer & HCI Metrics Analyst*
+* **GitHub Copilot** - *AI Code Review & Logic Optimization*
 
 ---
 
 ## 📄 Licencia
-Este proyecto se distribuye bajo la licencia **MIT**. Para más información, consulte el archivo `LICENSE`.
+Este proyecto se distribuye bajo la licencia **MIT**. Consulte el archivo `LICENSE` para más detalles.
 
 ---
 Desarrollado con rigor técnico para la optimización de la experiencia de usuario.
