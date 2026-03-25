@@ -14,7 +14,7 @@ UX Lab Analytics es un ecosistema diseñado para ingenieros y especialistas en U
 
 ## 📸 Vista Previa (Preview)
 
-![Dashboard HCI](<img width="1902" height="924" alt="image" src="https://github.com/user-attachments/assets/a8f5316f-70d9-4d07-9e1f-55bdaefcd3d6" />)
+![Dashboard HCI](https://github.com/Josue04-n/TowerDefense/blob/main/Captura%20de%20pantalla%202026-03-24%20234248.png)
 *Interfaz optimizada con Branding personalizado y Widget de Accesibilidad dinámico.*
 
 ---
