@@ -51,7 +51,7 @@ El sistema implementa una arquitectura **TALL Stack** (Tailwind, Alpine.js, Lara
 ### Guía Paso a Paso
 1.  **Clonación del Proyecto:**
     ```bash
-    git clone [https://github.com/tu-usuario/ux-lab-analytics.git](https://github.com/tu-usuario/ux-lab-analytics.git)
+    git clone [https://github.com/Josue04-n/Grupo-HCI-5.git)
     cd ux-lab-analytics
     ```
 
